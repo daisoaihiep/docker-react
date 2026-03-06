@@ -1,0 +1,14 @@
+name: Deploy Frontend
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t daisoai/react-test -f Dockerfile.dev .
+      - run: docker run -e CI=true daisoai/react-test npm test
